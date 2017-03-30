@@ -3,6 +3,8 @@ package mobile_graphics;
 import java.awt.*;
 
 /**
+ * Esta clase representa una bola abstracta que puede ser representada mediante un gráfico.
+ * Contiene todos los métodos necesarios para ello.
  * @author Óscar Darias Plasencia
  * @since 29/03/2017
  */
@@ -10,11 +12,31 @@ public class GraphicBall {
 
     private Point center;
     private double radius;
+    Color color;
 
 
-    public GraphicBall(Point center, double radius) {
+    public GraphicBall() {
+        this.color = Color.RED;
+    }
+
+    /**
+     * Constructor por parámetros.
+     * @param center Coordenadas del centro del círculo.
+     * @param radius Radio del círculo.
+     * @param color Objeto Color que representa el color con el que se dibujaría el círculo.
+     */
+    public GraphicBall(Point center, double radius, Color color) {
         this.center = center;
         this.radius = radius;
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public Point getCenter() {
@@ -41,24 +63,59 @@ public class GraphicBall {
         return center.getY();
     }
 
+    /**
+     * Mueve el centro del círculo al punto indicado como parámetro.
+     * @param newPlace
+     */
     public void moveTo(Point newPlace) {
         setCenter(newPlace);
     }
 
+    /**
+     * Mueve el círculo hacia arriba en la distancia especificada como parámetro.
+     * @param distance
+     */
     public void moveUp(double distance) {
-        center.move(center.getX(), getCenterY() - distance);
+        center.move((int) center.getX(), (int) (getCenterY() - distance));
     }
 
+    /**
+     * Mueve el círculo hacia abajo en la distancia especificada como parámetro.
+     * @param distance
+     */
     public void moveDown(double distance) {
-        center.move(center.getX(), getCenterY() + distance);
+        center.move((int) center.getX(), (int)(getCenterY() + distance));
     }
 
+    /**
+     * Mueve el círculo hacia la izquierda en la distancia especificada como parámetro.
+     * @param distance
+     */
     public void moveLeft(double distance) {
-        center.move(center.getX() - dis, getCenterY() + distance);
+        center.move((int) (center.getX() - distance), (int) getCenterY());
     }
 
-    public void moveUp(double distance) {
-        center.move(center.getX(), getCenterY() + distance);
+    /**
+     * Mueve el círculo hacia la derecha en la distancia especificada como parámetro.
+     * @param distance
+     */
+    public void moveRight(double distance) {
+        center.move((int) (center.getX() + distance), (int) getCenterY());
+    }
+
+    /**
+     * Este método dibuja la bola en una ventana gráfica, a partir de los atributos de la misma.
+     * @param g
+     */
+    public void drawBall(Graphics g, int width, int height) {
+        if (getCenterX() + getRadius() > width)
+            setCenter(new Point((int) (getCenterX() - (getCenterX() + getRadius() - width)), (int) getCenterY()));
+        else if (getCenterY() + getRadius() > height)
+            setCenter(new Point((int) getCenterX(), (int) (getCenterY() - (getCenterY() + getRadius() - height))));
+        Color previousColor = g.getColor();
+        g.setColor(getColor());
+        g.fillOval((int) getCenterX(), (int) getCenterY(), 2 * (int) getRadius(), 2 * (int) getRadius());
+        g.setColor(previousColor);
     }
 }
 
