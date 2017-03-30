@@ -67,7 +67,7 @@ public class GraphicBallWindow extends JFrame {
     private GraphicBallSpace ballSpace;
     private GraphicBall ball;
 
-    public GraphicBallWindow(GraphicBall ball) {
+    public GraphicBallWindow() {
         super();
         setLayout(new FlowLayout(FlowLayout.CENTER));
         setLocationRelativeTo(null);
@@ -76,7 +76,7 @@ public class GraphicBallWindow extends JFrame {
         this.ballSpace = new GraphicBallSpace(PANEL_WIDTH, PANEL_HEIGHT / 2);
         add(ballSpace);
         add(keys);
-        this.ball = ball;
+        this.ball = new GraphicBall();
     }
 
     public GraphicBall getBall() {
