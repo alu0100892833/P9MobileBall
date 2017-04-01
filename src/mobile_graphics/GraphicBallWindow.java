@@ -35,6 +35,7 @@ public class GraphicBallWindow extends JFrame {
             JPanel leftRightPanel = new JPanel(new GridLayout(1, 2, 3, 3));
             leftRightPanel.add(left);
             leftRightPanel.add(right);
+            add(leftRightPanel);
             add(down);
         }
     }
@@ -43,10 +44,18 @@ public class GraphicBallWindow extends JFrame {
      * Esta clase anidada representa la zona de la ventana donde aparece el espacio sobre el que se mueve la bola.
      */
     private class GraphicBallSpace extends JPanel {
+        private GraphicBall paintedBall;
+
         public GraphicBallSpace(int width, int height) {
             super();
             setSize(width, height);
             setBackground(Color.BLUE);
+            this.paintedBall = ball;
+            System.out.println("DIMENSIONES BOLA: " + width + "x" + height);
+        }
+
+        public void setBall(GraphicBall ball) {
+            this.paintedBall = ball;
         }
 
         public Graphics getGraphics() {
@@ -60,6 +69,11 @@ public class GraphicBallWindow extends JFrame {
         public double getIdealBallRadius() {
             return getWidth() / 4;
         }
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            paintedBall.drawBall(g, getWidth(), getHeight());
+        }
     }
 
 
@@ -69,14 +83,15 @@ public class GraphicBallWindow extends JFrame {
 
     public GraphicBallWindow() {
         super();
-        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new GridLayout(2, 1, 10, 10));
         setLocationRelativeTo(null);
         setSize(PANEL_WIDTH, PANEL_HEIGHT);
+        System.out.println("DIMENSIONES TOTALES: " + PANEL_WIDTH + "x" + PANEL_HEIGHT);
         this.keys = new GraphicControlKeys(PANEL_WIDTH, PANEL_HEIGHT / 2);
         this.ballSpace = new GraphicBallSpace(PANEL_WIDTH, PANEL_HEIGHT / 2);
         add(ballSpace);
         add(keys);
-        this.ball = new GraphicBall();
+        this.ball = null;
     }
 
     public GraphicBall getBall() {
@@ -85,11 +100,12 @@ public class GraphicBallWindow extends JFrame {
 
     public void setBall(GraphicBall ball) {
         this.ball = ball;
+        ballSpace.setBall(ball);
     }
 
-    public Graphics getBallSectionGraphics() {
+    /* public Graphics getBallSectionGraphics() {
         return ballSpace.getGraphics();
-    }
+    }*/
 
     public Point getIdealBallCenter() {
         return ballSpace.getIdealBallCenter();

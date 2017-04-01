@@ -29,6 +29,7 @@ public class GraphicBall {
         this.center = center;
         this.radius = radius;
         this.color = color;
+        System.out.println("CENTRO IDEAL DE LA BOLA: " + center.getX() + "x" + center.getY());
     }
 
     public Color getColor() {
@@ -105,7 +106,10 @@ public class GraphicBall {
 
     /**
      * Este método dibuja la bola en una ventana gráfica, a partir de los atributos de la misma.
+     * Se asegura de que la bola no se sale del panel. Si lo hiciera, la dejaría en el límite.
      * @param g
+     * @param width Es la anchura del panel en el que se va a dibujar la bola.
+     * @param height Es la altura del panel en el que se va a dibujar la bola.
      */
     public void drawBall(Graphics g, int width, int height) {
         if (getCenterX() + getRadius() > width)
