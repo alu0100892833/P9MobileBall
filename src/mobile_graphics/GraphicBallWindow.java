@@ -67,7 +67,7 @@ public class GraphicBallWindow extends JFrame {
         }
 
         public double getIdealBallRadius() {
-            return getWidth() / 4;
+            return getWidth() / 6;
         }
 
         public void paintComponent(Graphics g) {

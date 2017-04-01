@@ -105,6 +105,15 @@ public class GraphicBall {
     }
 
     /**
+     * Este método devuelve la posición de la esquina superior izquierda del rectángulo que engloba a la bola.
+     * Esto a fin de poder representar la bola correctamente con el método fillOval, que requiere de dicho dato y no del centro de la bola.
+     * @return
+     */
+    private Point getUpperLeftCorner() {
+        return new Point((int) (getCenterX() - getRadius()), (int) (getCenterY() - getRadius()));
+    }
+
+    /**
      * Este método dibuja la bola en una ventana gráfica, a partir de los atributos de la misma.
      * Se asegura de que la bola no se sale del panel. Si lo hiciera, la dejaría en el límite.
      * @param g
@@ -112,14 +121,25 @@ public class GraphicBall {
      * @param height Es la altura del panel en el que se va a dibujar la bola.
      */
     public void drawBall(Graphics g, int width, int height) {
+        checkInBoundsPosition(width, height);
+
+        Color previousColor = g.getColor();
+        g.setColor(getColor());
+        g.fillOval((int) getUpperLeftCorner().getX(), (int) getUpperLeftCorner().getY(), 2 * (int) getRadius(), 2 * (int) getRadius());
+        g.setColor(previousColor);
+    }
+
+    /**
+     * Este método comprueba que la posición de la bola se encuentra dentro de los límites del panel.
+     * En caso de que se encuentre fuera, la fija en el límite.
+     * @param width
+     * @param height
+     */
+    private void checkInBoundsPosition(int width, int height) {
         if (getCenterX() + getRadius() > width)
             setCenter(new Point((int) (getCenterX() - (getCenterX() + getRadius() - width)), (int) getCenterY()));
         else if (getCenterY() + getRadius() > height)
             setCenter(new Point((int) getCenterX(), (int) (getCenterY() - (getCenterY() + getRadius() - height))));
-        Color previousColor = g.getColor();
-        g.setColor(getColor());
-        g.fillOval((int) getCenterX(), (int) getCenterY(), 2 * (int) getRadius(), 2 * (int) getRadius());
-        g.setColor(previousColor);
     }
 }
 
