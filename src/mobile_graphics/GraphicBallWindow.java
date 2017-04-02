@@ -106,12 +106,12 @@ public class GraphicBallWindow extends JFrame {
         }
 
         /**
-         * Sobrescritura del método paintComponent
+         * Sobrescritura del método paintComponent que dibuja la bola sobre el plano.
          * @param g
          */
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            ball.drawBall(g, getWidth(), getHeight());
+            getBall().drawBall(g, getWidth(), getHeight());
         }
     }
 
@@ -120,6 +120,10 @@ public class GraphicBallWindow extends JFrame {
     private GraphicBallSpace ballSpace;
     private GraphicBall ball;
 
+    /**
+     * Constructor de la vista. Fija un gridLayout con dos paneles: uno para los controles y otro para la bola.
+     * @param movingDistance Parámetro necesario para construir el panel de los controles. Indica la distancia que se desplaza la bola con cada movimiento.
+     */
     public GraphicBallWindow(double movingDistance) {
         super();
         setLayout(new GridLayout(2, 1, 10, 10));
@@ -141,10 +145,18 @@ public class GraphicBallWindow extends JFrame {
         this.ball = ball;
     }
 
+    /**
+     * Método que permite obtener la posición inicial ideal para la bola a partir del método con el mismo nombre del panel ballSpace.
+     * @return Coordenadas ideales para la bola. Un objeto Point.
+     */
     public Point getIdealBallCenter() {
         return ballSpace.getIdealBallCenter();
     }
 
+    /**
+     * Método que permite obtener el radio ideal para la bola a partir del método con el mismo nombre del panel ballSpace.
+     * @return Radio ideal para la bola (double).
+     */
     public double getIdealBallRadius() {
         return ballSpace.getIdealBallRadius();
     }

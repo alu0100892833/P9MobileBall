@@ -35,13 +35,13 @@ public class GraphicBall {
         return color;
     }
 
-    public void setColor(Color color) {
+    /*public void setColor(Color color) {
         this.color = color;
-    }
+    }*/
 
-    public Point getCenter() {
+    /*public Point getCenter() {
         return center;
-    }
+    }*/
 
     public void setCenter(Point center) {
         this.center = center;
@@ -51,9 +51,9 @@ public class GraphicBall {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    /*public void setRadius(double radius) {
         this.radius = radius;
-    }
+    }*/
 
     public double getCenterX() {
         return center.getX();
