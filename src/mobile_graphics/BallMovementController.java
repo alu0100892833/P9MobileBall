@@ -12,11 +12,9 @@ public class BallMovementController {
 
     private GraphicBall ball;
     private GraphicBallWindow view;
-    private double movingDistance;
 
     public BallMovementController(Color ballColor, double movingDistance) {
-        this.movingDistance = movingDistance;
-        view = new GraphicBallWindow();
+        view = new GraphicBallWindow(movingDistance);
         ball = new GraphicBall(view.getIdealBallCenter(), view.getIdealBallRadius(), ballColor);
         view.setBall(ball);
         view.setVisible(true);

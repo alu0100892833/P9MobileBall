@@ -8,6 +8,11 @@ import java.awt.Color;
  */
 public class InteractiveBall {
     public static void main(String[] args) {
-        BallMovementController mainWindow = new BallMovementController(Color.RED, 2);
+        try {
+            BallMovementController mainWindow = new BallMovementController(Color.RED, Double.parseDouble(args[0]));
+        } catch(IndexOutOfBoundsException e) {
+            System.err.println("Debe introducir la distancia de desplazamiento por línea de comandos.");
+            e.printStackTrace();
+        }
     }
 }

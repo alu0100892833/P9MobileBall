@@ -29,7 +29,6 @@ public class GraphicBall {
         this.center = center;
         this.radius = radius;
         this.color = color;
-        System.out.println("CENTRO IDEAL DE LA BOLA: " + center.getX() + "x" + center.getY());
     }
 
     public Color getColor() {
@@ -65,43 +64,65 @@ public class GraphicBall {
     }
 
     /**
-     * Mueve el centro del círculo al punto indicado como parámetro.
-     * @param newPlace
+     * Este método indica si la posición a la que el círculo se ha movido está fuera de los límites del plano por el que se mueve.
+     * @param width Anchura del plano.
+     * @param height Altura del plano.
+     * @return True o false, si está o no, fuera de los límites.
      */
-    public void moveTo(Point newPlace) {
-        setCenter(newPlace);
+    private boolean isOutOfBounds(int width, int height) {
+        if ((getCenterX() + getRadius() > width) || (getCenterY() + getRadius() > height))
+            return true;
+        else if ((getCenterX() - getRadius() < 0) || (getCenterY() - getRadius() < 0))
+            return true;
+        return false;
     }
 
     /**
      * Mueve el círculo hacia arriba en la distancia especificada como parámetro.
      * @param distance
+     * @param width Anchura del plano por el que se mueve.
+     * @param height Altura del plano por el que se mueve.
      */
-    public void moveUp(double distance) {
+    public void moveUp(double distance, int width, int height) {
         center.move((int) center.getX(), (int) (getCenterY() - distance));
+        if (isOutOfBounds(width, height))
+            center.move((int) center.getX(), (int) getRadius());
     }
 
     /**
      * Mueve el círculo hacia abajo en la distancia especificada como parámetro.
      * @param distance
+     * @param width Anchura del plano por el que se mueve.
+     * @param height Altura del plano por el que se mueve.
      */
-    public void moveDown(double distance) {
+    public void moveDown(double distance, int width, int height) {
         center.move((int) center.getX(), (int)(getCenterY() + distance));
+        if (isOutOfBounds(width, height))
+            center.move((int) center.getX(), (int) (height - getRadius()));
     }
 
     /**
      * Mueve el círculo hacia la izquierda en la distancia especificada como parámetro.
      * @param distance
+     * @param width Anchura del plano por el que se mueve.
+     * @param height Altura del plano por el que se mueve.
      */
-    public void moveLeft(double distance) {
+    public void moveLeft(double distance, int width, int height) {
         center.move((int) (center.getX() - distance), (int) getCenterY());
+        if (isOutOfBounds(width, height))
+            center.move((int) getRadius(), (int) getCenterY());
     }
 
     /**
      * Mueve el círculo hacia la derecha en la distancia especificada como parámetro.
      * @param distance
+     * @param width Anchura del plano por el que se mueve.
+     * @param height Altura del plano por el que se mueve.
      */
-    public void moveRight(double distance) {
+    public void moveRight(double distance, int width, int height) {
         center.move((int) (center.getX() + distance), (int) getCenterY());
+        if (isOutOfBounds(width, height))
+            center.move((int) (width - getRadius()), (int) getCenterY());
     }
 
     /**
