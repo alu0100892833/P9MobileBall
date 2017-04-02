@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  * Hace las veces de vista para el programa de la bola móvil.
  * @author Óscar Darias Plasencia
  * @since 29/03/2017
+ * @version 1.1.0
  */
 public class GraphicBallWindow extends JFrame {
 	private static final long serialVersionUID = 679105964366671580L;
@@ -147,7 +148,7 @@ public class GraphicBallWindow extends JFrame {
     private GraphicBall ball;
 
     /**
-     * Constructor de la vista. Fija un gridLayout con dos paneles: uno para los controles y otro para la bola.
+     * Constructor de la vista. Fija un BorderLayout con dos paneles: uno para los controles y otro para la bola.
      * @param movingDistance Parámetro necesario para construir el panel de los controles. Indica la distancia que se desplaza la bola con cada movimiento.
      */
     public GraphicBallWindow(double movingDistance) {
