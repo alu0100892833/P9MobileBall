@@ -51,6 +51,7 @@ public class GraphicBallWindow extends JFrame {
         /**
          * Esta clase interna permite implementar los listeners correspondientes para que las pulsaciones de los botones sean detectadas.
          * Así, dependiendo del botón pulsado, que identificamos utilizando getSource(), llamamos al método correspondiente de la clase GraphicBall.
+         * El panel de la bola se repinta para mostrar la nueva posición de la bola.
          */
         class ButtonListeners implements ActionListener {
             public void actionPerformed(ActionEvent e) {

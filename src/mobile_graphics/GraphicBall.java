@@ -14,11 +14,6 @@ public class GraphicBall {
     private double radius;
     Color color;
 
-
-    public GraphicBall() {
-        this.color = Color.RED;
-    }
-
     /**
      * Constructor por parámetros.
      * @param center Coordenadas del centro del círculo.
