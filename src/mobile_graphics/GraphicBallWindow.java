@@ -12,15 +12,16 @@ import java.awt.event.ActionListener;
  * @since 29/03/2017
  */
 public class GraphicBallWindow extends JFrame {
-
-    private final int PANEL_WIDTH = 400;
+	private static final long serialVersionUID = 679105964366671580L;
+	private final int PANEL_WIDTH = 400;
     private final int PANEL_HEIGHT = 700;
 
     /**
      * Esta clase anidada representa la zona de la ventana donde aparecen los controles para la bola.
      */
     private class GraphicControlKeys extends JPanel {
-        private JButton up, down, left, right;
+		private static final long serialVersionUID = 8807151451558010580L;
+		private JButton up, down, left, right;
         private double movingDistance;
 
         public GraphicControlKeys(int width, int height, double movingDistance) {
@@ -84,7 +85,9 @@ public class GraphicBallWindow extends JFrame {
      * Esta clase anidada representa la zona de la ventana donde aparece el espacio sobre el que se mueve la bola.
      */
     private class GraphicBallSpace extends JPanel {
-        public GraphicBallSpace(int width, int height) {
+		private static final long serialVersionUID = -4089019660184674278L;
+
+		public GraphicBallSpace(int width, int height) {
             super();
             setSize(width, height);
             setBackground(Color.BLUE);

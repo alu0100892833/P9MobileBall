@@ -8,11 +8,11 @@ import java.awt.*;
  * @author Óscar Darias Plasencia
  * @since 29/03/2017
  */
-public class GraphicBall {
+class GraphicBall {
 
     private Point center;
     private double radius;
-    Color color;
+    private Color color;
 
     /**
      * Constructor por parámetros.
@@ -20,13 +20,13 @@ public class GraphicBall {
      * @param radius Radio del círculo.
      * @param color Objeto Color que representa el color con el que se dibujaría el círculo.
      */
-    public GraphicBall(Point center, double radius, Color color) {
+    GraphicBall(Point center, double radius, Color color) {
         this.center = center;
         this.radius = radius;
         this.color = color;
     }
 
-    public Color getColor() {
+    private Color getColor() {
         return color;
     }
 
@@ -38,11 +38,11 @@ public class GraphicBall {
         return center;
     }*/
 
-    public void setCenter(Point center) {
+    /*private void setCenter(Point center) {
         this.center = center;
-    }
+    }*/
 
-    public double getRadius() {
+    private double getRadius() {
         return radius;
     }
 
@@ -50,11 +50,11 @@ public class GraphicBall {
         this.radius = radius;
     }*/
 
-    public double getCenterX() {
+    private double getCenterX() {
         return center.getX();
     }
 
-    public double getCenterY() {
+    private double getCenterY() {
         return center.getY();
     }
 
@@ -78,7 +78,7 @@ public class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    public void moveUp(double distance, int width, int height) {
+    void moveUp(double distance, int width, int height) {
         center.move((int) center.getX(), (int) (getCenterY() - distance));
         if (isOutOfBounds(width, height))
             center.move((int) center.getX(), (int) getRadius());
@@ -90,7 +90,7 @@ public class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    public void moveDown(double distance, int width, int height) {
+    void moveDown(double distance, int width, int height) {
         center.move((int) center.getX(), (int)(getCenterY() + distance));
         if (isOutOfBounds(width, height))
             center.move((int) center.getX(), (int) (height - getRadius()));
@@ -102,7 +102,7 @@ public class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    public void moveLeft(double distance, int width, int height) {
+    void moveLeft(double distance, int width, int height) {
         center.move((int) (center.getX() - distance), (int) getCenterY());
         if (isOutOfBounds(width, height))
             center.move((int) getRadius(), (int) getCenterY());
@@ -114,7 +114,7 @@ public class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    public void moveRight(double distance, int width, int height) {
+    void moveRight(double distance, int width, int height) {
         center.move((int) (center.getX() + distance), (int) getCenterY());
         if (isOutOfBounds(width, height))
             center.move((int) (width - getRadius()), (int) getCenterY());
@@ -136,26 +136,11 @@ public class GraphicBall {
      * @param width Es la anchura del panel en el que se va a dibujar la bola.
      * @param height Es la altura del panel en el que se va a dibujar la bola.
      */
-    public void drawBall(Graphics g, int width, int height) {
-        checkInBoundsPosition(width, height);
-
+    void drawBall(Graphics g, int width, int height) {
         Color previousColor = g.getColor();
         g.setColor(getColor());
         g.fillOval((int) getUpperLeftCorner().getX(), (int) getUpperLeftCorner().getY(), 2 * (int) getRadius(), 2 * (int) getRadius());
         g.setColor(previousColor);
-    }
-
-    /**
-     * Este método comprueba que la posición de la bola se encuentra dentro de los límites del panel.
-     * En caso de que se encuentre fuera, la fija en el límite.
-     * @param width
-     * @param height
-     */
-    private void checkInBoundsPosition(int width, int height) {
-        if (getCenterX() + getRadius() > width)
-            setCenter(new Point((int) (getCenterX() - (getCenterX() + getRadius() - width)), (int) getCenterY()));
-        else if (getCenterY() + getRadius() > height)
-            setCenter(new Point((int) getCenterX(), (int) (getCenterY() - (getCenterY() + getRadius() - height))));
     }
 }
 
