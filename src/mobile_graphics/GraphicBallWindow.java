@@ -1,6 +1,7 @@
 package mobile_graphics;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ public class GraphicBallWindow extends JFrame {
 	private static final long serialVersionUID = 679105964366671580L;
 	private final int PANEL_WIDTH = 400;
     private final int PANEL_HEIGHT = 700;
+    private final int KEY_PANEL_HEIGHT = 100;
+    private final Dimension BUTTON_DIMENSIONS = new Dimension(70, 40);
 
     /**
      * Esta clase anidada representa la zona de la ventana donde aparecen los controles para la bola.
@@ -28,8 +31,24 @@ public class GraphicBallWindow extends JFrame {
             super();
             this.movingDistance = movingDistance;
             setSize(width, height);
+            createButtons();
             createLayout();
             createListeners();
+        }
+        
+        /**
+         * Este método crea los botones y fija el tamaño que se desea que tengan.
+         */
+        private void createButtons() {
+        	this.up = new JButton("UP");
+            this.down = new JButton("DOWN");
+            this.left = new JButton("LEFT");
+            this.right = new JButton("RIGHT");
+            
+        	up.setPreferredSize(BUTTON_DIMENSIONS);
+            down.setPreferredSize(BUTTON_DIMENSIONS);
+            left.setPreferredSize(BUTTON_DIMENSIONS);
+            right.setPreferredSize(BUTTON_DIMENSIONS);
         }
 
         /**
@@ -37,16 +56,19 @@ public class GraphicBallWindow extends JFrame {
          */
         private void createLayout() {
             setLayout(new GridLayout(3, 1));
-            this.up = new JButton("UP");
-            this.down = new JButton("DOWN");
-            this.left = new JButton("LEFT");
-            this.right = new JButton("RIGHT");
-            add(up);
-            JPanel leftRightPanel = new JPanel(new GridLayout(1, 2, 3, 3));
+            
+            JPanel upPanel = new JPanel(new FlowLayout());
+            upPanel.add(up);
+            add(upPanel);
+            
+            JPanel leftRightPanel = new JPanel(new FlowLayout());
             leftRightPanel.add(left);
             leftRightPanel.add(right);
             add(leftRightPanel);
-            add(down);
+            
+            JPanel bottomPanel = new JPanel(new FlowLayout());
+            bottomPanel.add(down);
+            add(bottomPanel);
         }
 
         /**
@@ -57,13 +79,13 @@ public class GraphicBallWindow extends JFrame {
         class ButtonListeners implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == up)
-                    ball.moveUp(movingDistance, getWidth(), getHeight());
+                    ball.moveUp(movingDistance, ballSpace.getWidth(), ballSpace.getHeight());
                 else if (e.getSource() == down)
-                    ball.moveDown(movingDistance, getWidth(), getHeight());
+                    ball.moveDown(movingDistance, ballSpace.getWidth(), ballSpace.getHeight());
                 else if (e.getSource() == left)
-                    ball.moveLeft(movingDistance, getWidth(), getHeight());
+                    ball.moveLeft(movingDistance, ballSpace.getWidth(), ballSpace.getHeight());
                 else if (e.getSource() == right)
-                    ball.moveRight(movingDistance, getWidth(), getHeight());
+                    ball.moveRight(movingDistance, ballSpace.getWidth(), ballSpace.getHeight());
                 ballSpace.revalidate();
                 ballSpace.repaint();
             }
@@ -130,14 +152,14 @@ public class GraphicBallWindow extends JFrame {
      */
     public GraphicBallWindow(double movingDistance) {
         super();
-        setLayout(new GridLayout(2, 1, 10, 10));
+        setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(PANEL_WIDTH, PANEL_HEIGHT);
-        this.keys = new GraphicControlKeys(PANEL_WIDTH, PANEL_HEIGHT / 2, movingDistance);
-        this.ballSpace = new GraphicBallSpace(PANEL_WIDTH, PANEL_HEIGHT / 2);
-        add(ballSpace);
-        add(keys);
+        this.keys = new GraphicControlKeys(PANEL_WIDTH, KEY_PANEL_HEIGHT, movingDistance);
+        this.ballSpace = new GraphicBallSpace(PANEL_WIDTH, PANEL_HEIGHT - KEY_PANEL_HEIGHT);
+        add(ballSpace, BorderLayout.CENTER);
+        add(keys, BorderLayout.SOUTH);
         this.ball = null;
     }
 
