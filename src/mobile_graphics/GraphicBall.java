@@ -78,11 +78,41 @@ class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    void moveUp(double distance, int width, int height) {
+    void moveUp(double distance, int width, int height) throws OutOfRangeException {
         center.move((int) center.getX(), (int) (getCenterY() - distance));
-        if (isOutOfBounds(width, height))
+        if (isOutOfBounds(width, height)) {
             center.move((int) center.getX(), (int) getRadius());
+            throw new OutOfRangeException();
+        }
     }
+    
+    /**
+     * Mueve el círculo hacia la esquina superior izquierda en la distancia especificada como parámetro.
+     * @param distance
+     * @param width
+     * @param height
+     */
+    void moveNO(double distance, int width, int height) throws OutOfRangeException {
+    	if ((getCenterX() - distance >= getRadius()) && (getCenterY() - distance >= getRadius()))
+    		center.move((int) (center.getX() - distance), (int) (getCenterY() - distance));
+    	else
+    		throw new OutOfRangeException();
+    	
+    }
+    
+    /**
+     * Mueve el círculo hacia la esquina superior derecha en la distancia especificada como parámetro.
+     * @param distance
+     * @param width
+     * @param height
+     */
+    void moveNE(double distance, int width, int height) throws OutOfRangeException {
+    	if ((getCenterX() + distance <= width - getRadius()) && (getCenterY() - distance >= getRadius()))
+    		center.move((int) (center.getX() + distance), (int) (getCenterY() - distance));
+    	else
+    		throw new OutOfRangeException();
+    }
+
 
     /**
      * Mueve el círculo hacia abajo en la distancia especificada como parámetro.
@@ -90,11 +120,40 @@ class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    void moveDown(double distance, int width, int height) {
+    void moveDown(double distance, int width, int height)  throws OutOfRangeException{
         center.move((int) center.getX(), (int)(getCenterY() + distance));
-        if (isOutOfBounds(width, height))
+        if (isOutOfBounds(width, height)) {
             center.move((int) center.getX(), (int) (height - getRadius()));
+        	throw new OutOfRangeException();
+        }
     }
+    
+    /**
+     * Mueve el círculo hacia la esquina inferior izquierda en la distancia especificada como parámetro.
+     * @param distance
+     * @param width
+     * @param height
+     */
+    void moveSO(double distance, int width, int height) throws OutOfRangeException {
+    	if ((getCenterX() - distance >= getRadius()) && (getCenterY() + distance <= height - getRadius()))
+    		center.move((int) (center.getX() - distance), (int) (getCenterY() + distance));
+    	else
+    		throw new OutOfRangeException();
+    }
+
+    /**
+     * Mueve el círculo hacia la esquina inferior izquierda en la distancia especificada como parámetro.
+     * @param distance
+     * @param width
+     * @param height
+     */
+    void moveSE(double distance, int width, int height) throws OutOfRangeException {
+    	if ((getCenterX() + distance <= width - getRadius()) && (getCenterY() + distance <= height - getRadius()))
+    		center.move((int) (center.getX() + distance), (int) (getCenterY() + distance));
+    	else
+    		throw new OutOfRangeException();
+    }
+
 
     /**
      * Mueve el círculo hacia la izquierda en la distancia especificada como parámetro.
@@ -102,10 +161,12 @@ class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    void moveLeft(double distance, int width, int height) {
+    void moveLeft(double distance, int width, int height) throws OutOfRangeException {
         center.move((int) (center.getX() - distance), (int) getCenterY());
-        if (isOutOfBounds(width, height))
+        if (isOutOfBounds(width, height)) {
             center.move((int) getRadius(), (int) getCenterY());
+            throw new OutOfRangeException();
+        }
     }
 
     /**
@@ -114,10 +175,12 @@ class GraphicBall {
      * @param width Anchura del plano por el que se mueve.
      * @param height Altura del plano por el que se mueve.
      */
-    void moveRight(double distance, int width, int height) {
+    void moveRight(double distance, int width, int height) throws OutOfRangeException {
         center.move((int) (center.getX() + distance), (int) getCenterY());
-        if (isOutOfBounds(width, height))
+        if (isOutOfBounds(width, height)) {
             center.move((int) (width - getRadius()), (int) getCenterY());
+            throw new OutOfRangeException();
+        }
     }
 
     /**
